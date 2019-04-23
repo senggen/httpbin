@@ -19,4 +19,8 @@ RUN pip3 install --no-cache-dir /httpbin
 
 EXPOSE 80
 
-CMD ["gunicorn", "-b", "0.0.0.0:80", "httpbin:app", "-k", "gevent", "--keep-alive","15", "-w", "40"]
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2_amd64 /usr/bin/dumb-init
+RUN chmod +x /usr/bin/dumb-init
+
+ENTRYPOINT ["/usr/bin/dumb-init", ""]
+CMD ["gunicorn", "-b", "0.0.0.0:80", "httpbin:app", "-k", "gevent", "--keep-alive", "15"]
