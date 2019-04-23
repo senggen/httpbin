@@ -33,8 +33,8 @@ from werkzeug.wrappers import BaseResponse
 from werkzeug.http import parse_authorization_header
 from flasgger import Swagger, NO_SANITIZER
 
-from . import filters
-from .helpers import (
+from httpbin import filters
+from httpbin.helpers import (
     get_headers,
     status_code,
     get_dict,
@@ -49,8 +49,8 @@ from .helpers import (
     next_stale_after_value,
     digest_challenge_response,
 )
-from .utils import weighted_choice
-from .structures import CaseInsensitiveDict
+from httpbin.utils import weighted_choice
+from httpbin.structures import CaseInsensitiveDict
 
 with open(
     os.path.join(os.path.realpath(os.path.dirname(__file__)), "VERSION")
@@ -1780,7 +1780,8 @@ def a_json_endpoint():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=5000)
-    parser.add_argument("--host", default="127.0.0.1")
+    parser.add_argument("--port", type=int, default=80)
+    parser.add_argument("--host", default="0.0.0.0")
     args = parser.parse_args()
+    app.debug = True
     app.run(port=args.port, host=args.host)
