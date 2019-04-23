@@ -23,4 +23,4 @@ ADD https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2_a
 RUN chmod +x /usr/bin/dumb-init
 
 ENTRYPOINT ["/usr/bin/dumb-init", ""]
-CMD ["/httpbin/gunicorn", "-b", "0.0.0.0:80", "httpbin:app", "-k", "gevent", "--keep-alive", "15"]
+CMD ["/usr/local/bin/gunicorn", "-b", "0.0.0.0:80", "httpbin:app", "-k", "gevent", "--keep-alive", "15"]
